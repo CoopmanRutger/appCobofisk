@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DataStorage</string>
+    <string name="preference_file_key">/prefences</string>
+</resources>
