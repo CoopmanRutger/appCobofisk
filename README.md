@@ -1,14 +1,15 @@
 # readme lessen oefeningen
 
 ## les 1 - oefening 1
-is werkt.
+werkt.
 
 
 ## les 2 
 (afwezig - wijsheidstanden laten trekken)
 
 ## les 3 -oefening 2
-oefening van les 2 geprobeerd. er zit een fout in van ene pagina naar andere pagina te gaan, dan sluit hij af.
+oefening van les 2 geprobeerd. 
+Er zit een fout in: om van ene pagina naar andere pagina te gaan, dan sluit hij af.
 
 
 ## les 4 - oefening1 
