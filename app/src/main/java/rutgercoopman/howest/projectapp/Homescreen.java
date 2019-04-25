@@ -2,6 +2,7 @@ package rutgercoopman.howest.projectapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,9 @@ public class Homescreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
+
+        ConstraintLayout rl = (ConstraintLayout) findViewById(R.id.background);
+        rl.setBackgroundColor(getResources().getColor(R.color.colorRed));
 
         logoutButton = findViewById(R.id.logOutButton);
         deliverysButton = findViewById(R.id.deliverysButton);

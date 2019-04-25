@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ConstraintLayout rl = (ConstraintLayout) findViewById(R.id.background);
-        rl.setBackgroundColor(Color.RED);
+        rl.setBackgroundColor(getResources().getColor(R.color.colorRed));
 
         TextView textView = findViewById(R.id.usernameInput);
         textView.setText("Username");
