@@ -2,4 +2,8 @@
     <string name="app_name">projectAPP</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_homescreen">homescreen</string>
+    <string name="bestelbonnen">Bestelbonnen</string>
+    <string name="werknemers">Werknemers</string>
+    <string name="stock">Stock</string>
+    <string name="details">Details</string>
 </resources>

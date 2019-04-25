@@ -9,14 +9,12 @@
 
     <Button
         android:id="@+id/backToHome2"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/my_button_bg"
-        android:text="Terug"
         android:textColor="@android:color/holo_red_dark"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,7 +34,8 @@
         android:layout_width="395dp"
         android:layout_height="553dp"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="113dp">
+        tools:layout_editor_absoluteY="113dp"
+        tools:ignore="MissingConstraints">
 
         <TableRow
             android:layout_width="match_parent"
@@ -62,7 +61,6 @@
         android:layout_marginStart="153dp"
         android:layout_marginLeft="153dp"
         android:layout_marginTop="32dp"
-        android:text="Winkels"
         android:textColor="@android:color/white"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"

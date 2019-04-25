@@ -45,7 +45,6 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="25dp"
-        android:text="Username"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/loginView"
         app:layout_constraintTop_toTopOf="@+id/loginView" />
@@ -57,7 +56,6 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:text="Password"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/loginView"
         app:layout_constraintTop_toBottomOf="@+id/usernameText" />
@@ -96,7 +94,6 @@
         android:layout_marginLeft="100dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/radiusred"
-        android:text="Login"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/loginView"

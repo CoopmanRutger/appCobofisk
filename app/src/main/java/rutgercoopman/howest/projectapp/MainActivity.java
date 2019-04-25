@@ -21,11 +21,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         ConstraintLayout rl = (ConstraintLayout) findViewById(R.id.background);
         rl.setBackgroundColor(Color.RED);
 
+        TextView textView = findViewById(R.id.usernameInput);
+        textView.setText("Username");
+        TextView textView1 = findViewById(R.id.passwordInput);
+        textView1.setText("Password");
+
+
         loginButton = (Button) findViewById(R.id.loginButton);
+        loginButton.setText("Login");
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

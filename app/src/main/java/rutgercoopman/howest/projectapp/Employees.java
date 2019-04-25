@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class Employees extends AppCompatActivity {
 
@@ -17,7 +18,14 @@ public class Employees extends AppCompatActivity {
         setContentView(R.layout.activity_employees);
 
         backButton = findViewById(R.id.backToHome);
+        backButton.setText("Terug");
         addEmployeeButton = findViewById(R.id.addEmployee);
+        addEmployeeButton.setText("Toevoegen");
+
+        TextView textView = findViewById(R.id.textView6);
+        textView.setText("Werknemers");
+
+
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -23,6 +23,11 @@ public class Homescreen extends AppCompatActivity {
         storesButton = findViewById(R.id.storesButton);
         employeesButton = findViewById(R.id.employeesButton);
 
+        logoutButton.setText("Uitloggen");
+        deliverysButton.setText("Bestelbonnen");
+        storesButton.setText("Winkels");
+        employeesButton.setText("Werknemers");
+
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

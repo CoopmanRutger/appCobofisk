@@ -7,17 +7,29 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class Addemployee extends AppCompatActivity {
 
     Button backButton;
+    Button confirmAddEmployee;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addemployee);
 
+        TextView textView = findViewById(R.id.textView2);
+        textView.setText("Werknemer toevoegen");
+
+
         backButton = findViewById(R.id.backToEmployee);
+        backButton.setText("Terug");
+
+        confirmAddEmployee = findViewById(R.id.addEmployee);
+        confirmAddEmployee.setText("Bevestigen");
+
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

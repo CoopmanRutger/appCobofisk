@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,7 +16,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/my_button_bg"
-        android:text="Terug"
         android:textColor="@android:color/holo_red_dark"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,7 +29,6 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/radiusred"
-        android:text="Bevestigen"
         android:textAllCaps="true"
         android:textColor="@android:color/white"
         android:textStyle="bold"
@@ -42,7 +41,6 @@
         android:layout_height="105dp"
         android:background="@color/colorRed"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -89,7 +87,6 @@
         android:layout_marginStart="52dp"
         android:layout_marginLeft="52dp"
         android:layout_marginTop="32dp"
-        android:text="Werknemer toevoegen"
         android:textColor="@android:color/white"
         android:textSize="30sp"
         android:textStyle="bold"
