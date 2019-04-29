@@ -12,13 +12,13 @@
         android:id="@+id/deliverysButton"
         android:layout_width="175dp"
         android:layout_height="75dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginLeft="116dp"
         android:layout_marginTop="140dp"
         android:background="@drawable/radiuswhite"
         android:textColor="@color/colorRed"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,13 +26,13 @@
         android:id="@+id/storesButton"
         android:layout_width="175dp"
         android:layout_height="75dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginLeft="116dp"
-        android:layout_marginTop="85dp"
         android:background="@drawable/radiuswhite"
         android:textColor="@color/colorRed"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/employeesButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/deliverysButton" />
 
@@ -40,14 +40,14 @@
         android:id="@+id/employeesButton"
         android:layout_width="175dp"
         android:layout_height="75dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginLeft="116dp"
         android:layout_marginBottom="140dp"
         android:background="@drawable/radiuswhite"
         android:textColor="@color/colorRed"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button

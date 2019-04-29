@@ -10,16 +10,16 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 
-public abstract class EmployeesRepo<T> {
+public abstract class Repository<T> {
 
     private String defaultDomain;
 
-    public GenericRepo(String defaultDomain) {
+    public Repository(String defaultDomain) {
         this.defaultDomain = defaultDomain;
     }
 
-    public EmployeesRepo() {
-        this("http://localhost");
+    public Repository() {
+        this("http://10.0.0.2:3000");
     }
 
     public abstract List<T> getItems();
@@ -62,9 +62,12 @@ public abstract class EmployeesRepo<T> {
 
     String fetch(String urlString) throws IOException {
         URL url = new URL(defaultDomain + urlString);
+        
         URLConnection connection = url.openConnection();
+        System.out.println("Made connection");
 
         InputStream inputStream = connection.getInputStream();
+        System.out.println("Got inputstream");
 
         Scanner scanner = new Scanner(inputStream);
         scanner.useDelimiter("\\Z");

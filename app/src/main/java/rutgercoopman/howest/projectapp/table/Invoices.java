@@ -1,21 +1,15 @@
-package rutgercoopman.howest.projectapp;
+package rutgercoopman.howest.projectapp.table;
 
 
         import rutgercoopman.howest.projectapp.models.Employee;
 
 public class Invoices {
-    public Employee[] getInvoices() {
+
+    public Employee[] getEmployees() {
         Employee[] data = new Employee[20];
 
         for(int i = 0; i < 20; i ++) {
-            Employee row = new Employee();
-            row.id = (i+1);
-            row.age = i * 8;
-            row.startedOn = "20/02/2018";
-            row.name = "test " + i;
-            row.username =  "lol " + i;
-            row.duty = "functie "+1;
-
+            Employee row = new Employee((i+1), "test" +1, (i*8), "lol " + i,"functie" +1, "20/02/2018");
             data[i] = row;
         }
         return data;
