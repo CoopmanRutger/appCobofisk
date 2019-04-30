@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Storedetails">
 
-
     <Button
         android:id="@+id/backToStore"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -33,45 +32,34 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/storeTab"
-        android:layout_width="395dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleView4">
+        app:layout_constraintTop_toBottomOf="@+id/titleView4"
+        app:tabGravity="fill"
+        app:tabMode="fixed"></android.support.design.widget.TabLayout>
 
-        <android.support.design.widget.TabItem
-            android:id="@+id/details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/details" />
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/stock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/stock" />
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/werknemers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/werknemers" />
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/bestelbonnen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/bestelbonnen" />
-    </android.support.design.widget.TabLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="499dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/storeTab" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Winkel id:"
         android:textColor="@android:color/white"
         android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/titleView4"

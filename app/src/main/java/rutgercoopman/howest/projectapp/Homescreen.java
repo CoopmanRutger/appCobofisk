@@ -62,7 +62,7 @@ public class Homescreen extends AppCompatActivity {
     }
 
     private void loginScreen(){
-        Intent intent = new Intent(this,MainActivity.class );
+        Intent intent = new Intent(this, Login_screen.class );
         startActivity(intent);
     }
     private void goToDeliverys(){

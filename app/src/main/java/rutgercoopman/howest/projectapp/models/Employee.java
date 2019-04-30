@@ -4,10 +4,10 @@ public class Employee {
 
     public int id;
     public String name;
-    public  int age;
-    public  String username;
-    public  String duty;
-    public  String startedOn;
+    public int age;
+    public String username;
+    public String duty;
+    public String startedOn;
 
     public Employee(int id, String name, int age, String username, String duty, String startedOn) {
         this.id = id;

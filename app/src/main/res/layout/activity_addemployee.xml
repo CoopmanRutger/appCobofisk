@@ -106,7 +106,6 @@
         android:layout_marginRight="50dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintBottom_toTopOf="@+id/editAge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -132,7 +131,6 @@
         android:layout_marginRight="50dp"
         android:ems="10"
         android:inputType="number"
-        android:text="5"
         app:layout_constraintBottom_toTopOf="@+id/editJob"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editName" />
@@ -169,7 +167,6 @@
         android:layout_marginRight="50dp"
         android:ems="10"
         android:inputType="textPassword"
-        android:text="fsgbs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editUsername" />
 
@@ -193,7 +190,6 @@
         android:layout_marginRight="50dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintBottom_toTopOf="@+id/editPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editStore" />

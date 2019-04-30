@@ -84,123 +84,122 @@ public class Employees extends AppCompatActivity {
                 textSpacer.setText("");
 
             }
-//            // data columns
-            final TextView tv = new TextView(this);
-            tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+            // data columns
+            final TextView tvId = new TextView(this);
+            tvId.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
 
-            tv.setGravity(Gravity.CENTER);
+            tvId.setGravity(Gravity.CENTER);
 
-            tv.setPadding(5, 10, 0, 10);
+            tvId.setPadding(5, 10, 0, 10);
             if (i == -1) {
-                tv.setText("Id nr");
-                tv.setBackgroundColor(Color.parseColor("#ba160C"));
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
+                tvId.setText("Id nr");
+                tvId.setBackgroundColor(Color.parseColor("#ba160C"));
+                tvId.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
             } else {
-                tv.setBackgroundColor(Color.parseColor("#f8f8f8"));
-                tv.setText(String.valueOf(row.id));
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+                tvId.setBackgroundColor(Color.parseColor("#f8f8f8"));
+                tvId.setText(String.valueOf(row.id));
+                tvId.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             }
 
-//
-            final TextView tv2 = new TextView(this);
+            final TextView tvDuty = new TextView(this);
             if (i == -1) {
-                tv2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
+                tvDuty.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.WRAP_CONTENT));
-                tv2.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
+                tvDuty.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
             } else {
-                tv2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                tvDuty.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                         TableRow.LayoutParams.MATCH_PARENT));
-                tv2.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+                tvDuty.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             }
 
-            tv2.setGravity(Gravity.CENTER);
+            tvDuty.setGravity(Gravity.CENTER);
 
-            tv2.setPadding(5, 10, 0, 10);
+            tvDuty.setPadding(5, 10, 0, 10);
             if (i == -1) {
-                tv2.setText("Functie");
-                tv2.setBackgroundColor(Color.parseColor("#ba160C"));
+                tvDuty.setText("Functie");
+                tvDuty.setBackgroundColor(Color.parseColor("#ba160C"));
             }else {
-                tv2.setBackgroundColor(Color.parseColor("#ffffff"));
-                tv2.setTextColor(Color.parseColor("#000000"));
-                tv2.setText(row.duty);
+                tvDuty.setBackgroundColor(Color.parseColor("#ffffff"));
+                tvDuty.setTextColor(Color.parseColor("#000000"));
+                tvDuty.setText(row.duty);
             }
 
-            final TextView tv3 = new TextView(this);
+            final TextView tvName = new TextView(this);
             if (i == -1) {
-                tv3.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
+                tvName.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.MATCH_PARENT));
-                tv3.setPadding(5, 5, 0, 5);
-                tv3.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
+                tvName.setPadding(5, 5, 0, 5);
+                tvName.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
             } else {
-                tv3.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
+                tvName.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.MATCH_PARENT));
-                tv3.setPadding(5, 0, 0, 5);
-                tv3.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+                tvName.setPadding(5, 0, 0, 5);
+                tvName.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             }
 
-            tv3.setGravity(Gravity.CENTER);
-            tv3.setPadding(5, 10, 0, 10);
+            tvName.setGravity(Gravity.CENTER);
+            tvName.setPadding(5, 10, 0, 10);
 
             if (i == -1) {
-                tv3.setText("naam (leeftijd)");
-                tv3.setBackgroundColor(Color.parseColor("#ba160C"));
+                tvName.setText("naam (leeftijd)");
+                tvName.setBackgroundColor(Color.parseColor("#ba160C"));
             } else {
-                tv3.setBackgroundColor(Color.parseColor("#f8f8f8"));
-                tv3.setTextColor(Color.parseColor("#000000"));
-                tv3.setText(row.name + " (" + row.age + ")");
-                tv3.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
+                tvName.setBackgroundColor(Color.parseColor("#f8f8f8"));
+                tvName.setTextColor(Color.parseColor("#000000"));
+                tvName.setText(row.name + " (" + row.age + ")");
+                tvName.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
             }
 
-            final TextView tv3b = new TextView(this);
+            final TextView tvUsername = new TextView(this);
             if (i == -1) {
-                tv3b.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
+                tvUsername.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.WRAP_CONTENT));
-                tv3b.setPadding(5, 5, 1, 5);
+                tvUsername.setPadding(5, 5, 1, 5);
 
             } else {
-                tv3b.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                tvUsername.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                         TableRow.LayoutParams.MATCH_PARENT));
-                tv3b.setPadding(5, 5, 1, 5);
+                tvUsername.setPadding(5, 5, 1, 5);
             }
 
-            tv3b.setGravity(Gravity.CENTER);
-            tv3b.setPadding(5, 10, 0, 10);
+            tvUsername.setGravity(Gravity.CENTER);
+            tvUsername.setPadding(5, 10, 0, 10);
 
             if (i == -1) {
-                tv3b.setText("Username");
-                tv3b.setBackgroundColor(Color.parseColor("#ba160C"));
-                tv3b.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
+                tvUsername.setText("Username");
+                tvUsername.setBackgroundColor(Color.parseColor("#ba160C"));
+                tvUsername.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
             }else {
-                tv3b.setBackgroundColor(Color.parseColor("#ffffff"));
-                tv3b.setTextColor(Color.parseColor("#000000"));
-                tv3b.setText(row.username);
-                tv3b.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+                tvUsername.setBackgroundColor(Color.parseColor("#ffffff"));
+                tvUsername.setTextColor(Color.parseColor("#000000"));
+                tvUsername.setText(row.username);
+                tvUsername.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             }
 
-            final TextView tv4 = new TextView(this);
+            final TextView tvStartedOn = new TextView(this);
             if (i == -1) {
-                tv4.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
+                tvStartedOn.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.MATCH_PARENT));
-                tv4.setPadding(5, 5, 1, 5);
+                tvStartedOn.setPadding(5, 5, 1, 5);
             } else {
-                tv4.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
+                tvStartedOn.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.WRAP_CONTENT));
-                tv4.setPadding(5, 0, 1, 5);
+                tvStartedOn.setPadding(5, 0, 1, 5);
             }
 
-            tv4.setGravity(Gravity.CENTER);
-            tv4.setPadding(5, 10, 0, 10);
+            tvStartedOn.setGravity(Gravity.CENTER);
+            tvStartedOn.setPadding(5, 10, 0, 10);
 
             if (i == -1) {
-                tv4.setText("Begonnen op");
-                tv4.setBackgroundColor(Color.parseColor("#ba160C"));
-                tv4.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
+                tvStartedOn.setText("Begonnen op");
+                tvStartedOn.setBackgroundColor(Color.parseColor("#ba160C"));
+                tvStartedOn.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
             } else {
-                tv4.setBackgroundColor(Color.parseColor("#ffffff"));
-                tv4.setTextColor(Color.parseColor("#000000"));
-                tv4.setText(row.startedOn);
-                tv4.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+                tvStartedOn.setBackgroundColor(Color.parseColor("#ffffff"));
+                tvStartedOn.setTextColor(Color.parseColor("#000000"));
+                tvStartedOn.setText(row.startedOn);
+                tvStartedOn.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             }
 
             // add table row
@@ -211,11 +210,11 @@ public class Employees extends AppCompatActivity {
             trParams.setMargins(leftRowMargin, topRowMargin, rightRowMargin, bottomRowMargin);
             tr.setPadding(0,0,0,0);
             tr.setLayoutParams(trParams);
-            tr.addView(tv);
-            tr.addView(tv2);
-            tr.addView(tv3);
-            tr.addView(tv3b);
-            tr.addView(tv4);
+            tr.addView(tvId);
+            tr.addView(tvName);
+            tr.addView(tvDuty);
+            tr.addView(tvUsername);
+            tr.addView(tvStartedOn);
             if (i > -1) {
                 tr.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {

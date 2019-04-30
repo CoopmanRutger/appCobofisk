@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class Login_screen extends AppCompatActivity {
 
 
     Button loginButton;
