@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import rutgercoopman.howest.projectapp.models.Store;
 import rutgercoopman.howest.projectapp.TestData.Invoices;
+import rutgercoopman.howest.projectapp.repo.StoresRepo;
 
 public class Stores extends AppCompatActivity {
 
@@ -59,6 +60,9 @@ public class Stores extends AppCompatActivity {
         textSize = (int) getResources().getDimension(R.dimen.font_size_verysmall);
         smallTextSize = (int) getResources().getDimension(R.dimen.font_size_small);
 
+        // TODO: 01/05/2019
+        StoresRepo storesRepo = new StoresRepo();
+//        Store[] data = storesRepo.getItems().toArray(new Store[200]);
         Invoices stores = new Invoices();
         Store[] data = stores.getStores();
 

@@ -18,6 +18,9 @@ public abstract class Repository<T> {
         this.defaultDomain = defaultDomain;
     }
 
+//    public Repository() {
+//        this("http://127.0.0.1:3000");
+//    }
     public Repository() {
         this("http://10.0.0.2:3000");
     }

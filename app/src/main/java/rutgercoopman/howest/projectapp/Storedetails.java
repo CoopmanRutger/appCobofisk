@@ -9,20 +9,27 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import rutgercoopman.howest.projectapp.models.DeliveryNote;
 import rutgercoopman.howest.projectapp.models.Employee;
 import rutgercoopman.howest.projectapp.models.Product;
 import rutgercoopman.howest.projectapp.TestData.Invoices;
+import rutgercoopman.howest.projectapp.models.Store;
+import rutgercoopman.howest.projectapp.repo.StoresRepo;
 
 public class Storedetails extends AppCompatActivity {
 
@@ -86,27 +93,84 @@ public class Storedetails extends AppCompatActivity {
 
         private View fillInDetails( LayoutInflater inflater, ViewGroup container) {
             View rootView = inflater.inflate(R.layout.fragment_store_details, container, false);
-            // TODO: 30/04/2019 detail layout
 
             System.out.println("id:  " + storeId);
+
             // TODO: 01/05/2019 fetch met id store
+            StoresRepo storesRepo = new StoresRepo();
+            Store store = storesRepo.getItemById(storeId);
 
+            // standaard
+            TextView textTown = (TextView) rootView.findViewById(R.id.textTown);
+            textTown.setText("Gemeente: ");
+            TextView textZip = (TextView) rootView.findViewById(R.id.textZIP);
+            textZip.setText("Postcode: ");
+            TextView textStreet = (TextView) rootView.findViewById(R.id.textStreet);
+            textStreet.setText("Straat: ");
+            TextView textNumber = (TextView) rootView.findViewById(R.id.textNumber);
+            textNumber.setText("Nr: ");
+            TextView textAmountEmployees = (TextView) rootView.findViewById(R.id.textAmountEmployees);
+            textAmountEmployees.setText("Aantal werknemers: ");
+            TextView textAmountDeliverynotes = (TextView) rootView.findViewById(R.id.textAmountOfDeliveryNotes);
+            textAmountDeliverynotes.setText("Aantal bestelbonnen: ");
 
-            TextView textView = (TextView) rootView.findViewById(R.id.textStoreName);
-            textView.setText("winkel: ");
-
+            // fill in
+            TextView textIdF = (TextView) rootView.findViewById(R.id.textIdFillIn);
+            textIdF.setText("5");
             TextView textView1 = (TextView) rootView.findViewById(R.id.textStoreNameFillIn);
-            textView1.setText("winkel naam");
+            textView1.setText("Name");
+//            textView1.setText(store.name);
+            TextView textTownF = (TextView) rootView.findViewById(R.id.textTownFillIn);
+            textTownF.setText("Gent");
+            TextView textZipF = (TextView) rootView.findViewById(R.id.textZIPFillIn);
+            textZipF.setText("9000");
+            TextView textStreetF = (TextView) rootView.findViewById(R.id.textStreetFillIn);
+            textStreetF.setText("jeflaan ");
+            TextView textNumberF = (TextView) rootView.findViewById(R.id.textNumberFillIn);
+            textNumberF.setText("152b ");
+            TextView textAmountEmployeesF = (TextView) rootView.findViewById(R.id.textAmountEmployeesFillIn);
+            textAmountEmployeesF.setText("35");
+            TextView textAmountDeliverynotesF = (TextView) rootView.findViewById(R.id.textAmountOfDeliveryNotesFillIn);
+            textAmountDeliverynotesF.setText("10");
+
+            // TODO: dynamische figuur
+
+            ImageView img = new ImageView(rootView.getContext());
+            RelativeLayout relativeLayout = (RelativeLayout) rootView.findViewById(R.id.relativeLayout);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((LinearLayout.LayoutParams.MATCH_PARENT), LinearLayout.LayoutParams.WRAP_CONTENT);
+            if (storeId == 1) {
+                img.setImageResource(R.drawable.bcc);
+            }
+            if (storeId == 2) {
+                img.setImageResource(R.drawable.lidle);
+            }
+            if (storeId == 3) {
+                img.setImageResource(R.drawable.lidle);
+            }
+            if (storeId == 4) {
+                img.setImageResource(R.drawable.zeeman);
+            }
+            if (storeId == 5) {
+                img.setImageResource(R.drawable.action);
+            }
+
+            img.setLayoutParams(params);
+            relativeLayout.addView(img);
+
             return rootView;
         }
 
         private View fillInStock(LayoutInflater inflater, ViewGroup container) {
-            View rootView = inflater.inflate(R.layout.fragment_store_stock, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_store_listview, container, false);
             ListView listView = rootView.findViewById(R.id.simpleListView);
+
             Invoices invoices = new Invoices();
             Product[] productList = invoices.getStocks();
-            List<String> list = new ArrayList<>();
+            // TODO: 01/05/2019
+            StoresRepo storesRepo = new StoresRepo();
+            List<Product> stockList = storesRepo.getProductsByStoreIdAsync(storeId);
 
+            List<String> list = new ArrayList<>();
             for (Product product : productList) {
                 int id = product.id;
                 String name = product.name;
@@ -115,42 +179,67 @@ public class Storedetails extends AppCompatActivity {
                 String color = product.color;
                 int amount = product.amount;
 
-                list.add(id + "   " + name + "(" + size + ") " + brand + " " + color + " => " + amount);
+                list.add(id + "\t\t\t\t\t\t\t\t\t" + name + "\t\t\t\t\t\t\t\t (" + size + ")"
+                        + "\t\t\t\t\t\t aantal: " + amount + "\n\t\t\t\t\t\t\t\t\t\t\t" + brand
+                        + "\t\t\t\t\t\t\t\t " + color);
             }
-
-            ArrayAdapter<String> employeeArrayAdapter = new ArrayAdapter<>(rootView.getContext(), R.layout.fragment_store_stock, R.id.textViewStock , list );
+            ArrayAdapter<String> employeeArrayAdapter = new ArrayAdapter<>(rootView.getContext(), R.layout.fragment_store_listview, R.id.textViewEmployees , list );
             listView.setAdapter(employeeArrayAdapter);
-
 
             return rootView;
         }
 
         private View fillInEmployees(LayoutInflater inflater, ViewGroup container) {
-            View rootView = inflater.inflate(R.layout.fragment_store_employees, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_store_listview, container, false);
 
             ListView listView = rootView.findViewById(R.id.simpleListView);
+
             Invoices invoices = new Invoices();
             Employee[] employeesList = invoices.getEmployees();
-            List<String> list = new ArrayList<>();
+            // TODO: 01/05/2019
+            StoresRepo storesRepo = new StoresRepo();
+            List<Employee> employeeList = storesRepo.getEmployeesByStoreIdAsync(storeId);
 
+            List<String> list = new ArrayList<>();
             for (Employee employee : employeesList) {
                 String name = employee.name;
                 int age = employee.age;
                 int id = employee.id;
                 String duty = employee.duty;
 
-                list.add(id + "   " + name + "(" + age + ")  => " + duty);
+                list.add(id + "\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + name + "\t(" + age + ") \t\t\t\t\t\t\t\t\t\t\t\t\t " + duty);
             }
-            ArrayAdapter<String> employeeArrayAdapter = new ArrayAdapter<>(rootView.getContext(), R.layout.fragment_store_employees, R.id.textViewEmployees , list );
+            ArrayAdapter<String> employeeArrayAdapter = new ArrayAdapter<>(rootView.getContext(), R.layout.fragment_store_listview, R.id.textViewEmployees , list );
             listView.setAdapter(employeeArrayAdapter);
 
             return rootView;
         }
 
         private View fillInDeliveryNotes(LayoutInflater inflater, ViewGroup container) {
-            View rootView = inflater.inflate(R.layout.fragment_store_delivery_notes, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_store_listview, container, false);
 
+            ListView listView = rootView.findViewById(R.id.simpleListView);
+
+            Invoices invoices = new Invoices();
+            DeliveryNote[] deliveryNoteList = invoices.getDeliveryNotes();
             // TODO: 30/04/2019 delivery notes layout
+            StoresRepo storesRepo = new StoresRepo();
+//            List<DeliveryNote> deliveryNoteList =  storesRepo.getDeliveryNotesByStoreIdAsync(storeId);
+
+            List<String> list = new ArrayList<>();
+            for (DeliveryNote deliveryNote : deliveryNoteList) {
+                int id = deliveryNote.id;
+                String status = deliveryNote.status;
+                int amount = deliveryNote.amount;
+                String date = deliveryNote.date;
+                int productId = deliveryNote.productId;
+                String extra = deliveryNote.extra;
+
+                list.add(id + "\t\t\t\t\t\t\t\t\t\t\t\t [" + status + "]\t\t\t\t\t\t\t\t\t\t\t\t"
+                        + date + "\n\t\t\t\t - " + productId + "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  aantal: " + amount + "\n\t\t\t\t\t (" + extra + ")");
+            }
+            ArrayAdapter<String> deliveryNoteArrayAdapter = new ArrayAdapter<>(rootView.getContext(), R.layout.fragment_store_listview, R.id.textViewEmployees , list );
+            listView.setAdapter(deliveryNoteArrayAdapter);
 
             return rootView;
         }

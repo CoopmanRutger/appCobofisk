@@ -1,6 +1,7 @@
 package rutgercoopman.howest.projectapp.TestData;
 
 
+        import rutgercoopman.howest.projectapp.models.DeliveryNote;
         import rutgercoopman.howest.projectapp.models.Employee;
         import rutgercoopman.howest.projectapp.models.Product;
         import rutgercoopman.howest.projectapp.models.Store;
@@ -36,5 +37,12 @@ public class Invoices {
     }
 
 
-
+    public DeliveryNote[] getDeliveryNotes() {
+        DeliveryNote[] data = new DeliveryNote[20];
+        for (int i = 0; i < 20; i++) {
+            DeliveryNote row = new DeliveryNote(i + 1, i + i, "status", "texrtzenjkfoeno^ergno hergoi hezjjkfbneo ur", i, i + i + i, "23/02/23");
+            data[i] = row;
+        }
+            return data;
+    }
 }
