@@ -1,6 +1,6 @@
 package rutgercoopman.howest.projectapp.models;
 
-public class Stock {
+public class Product {
 
     public int id;
     public String name;
@@ -10,7 +10,7 @@ public class Stock {
     public int amount;
 
 
-    public Stock(int id, String name, String size, String brand, String color, int amount) {
+    public Product(int id, String name, String size, String brand, String color, int amount) {
         this.id = id;
         this.name = name;
         this.size = size;
