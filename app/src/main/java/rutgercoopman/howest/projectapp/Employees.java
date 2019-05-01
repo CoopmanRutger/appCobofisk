@@ -16,11 +16,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 
-import java.util.Arrays;
-
 import rutgercoopman.howest.projectapp.models.Employee;
-import rutgercoopman.howest.projectapp.repo.EmployeesRepo;
-import rutgercoopman.howest.projectapp.table.Invoices;
+import rutgercoopman.howest.projectapp.TestData.Invoices;
 
 public class Employees extends AppCompatActivity {
 

@@ -1,11 +1,9 @@
 package rutgercoopman.howest.projectapp;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -17,9 +15,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import rutgercoopman.howest.projectapp.models.Employee;
 import rutgercoopman.howest.projectapp.models.Store;
-import rutgercoopman.howest.projectapp.table.Invoices;
+import rutgercoopman.howest.projectapp.TestData.Invoices;
 
 public class Stores extends AppCompatActivity {
 

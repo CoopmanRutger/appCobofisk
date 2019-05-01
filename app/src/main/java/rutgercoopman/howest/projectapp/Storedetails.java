@@ -21,14 +21,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rutgercoopman.howest.projectapp.models.Employee;
-import rutgercoopman.howest.projectapp.models.Stock;
-import rutgercoopman.howest.projectapp.table.Invoices;
+import rutgercoopman.howest.projectapp.models.Product;
+import rutgercoopman.howest.projectapp.TestData.Invoices;
 
 public class Storedetails extends AppCompatActivity {
 
     TabLayout tabFull;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+    public static int number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +50,10 @@ public class Storedetails extends AppCompatActivity {
     public static class PlaceholderFragment extends Fragment {
 
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private static int storeId;
 
         public PlaceholderFragment() {
+            storeId = Storedetails.number;
         }
 
         public static PlaceholderFragment newInstance(int sectionNumber) {
@@ -85,14 +88,9 @@ public class Storedetails extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_store_details, container, false);
             // TODO: 30/04/2019 detail layout
 
-//            TextView titleTextview = rootView.findViewById(R.id.textView3);
-//            String title = (String) titleTextview.getText();
-//            String[] test = title.split(" ");
-//            String storeName = test[0];
-//            String storeId = test[1].substring(test[1].length()-1);
-//            System.out.println(storeId);
-//            System.out.println(storeName);
-//            titleTextview.setText(storeName + " (id:" + storeId + ")");
+            System.out.println("id:  " + storeId);
+            // TODO: 01/05/2019 fetch met id store
+
 
             TextView textView = (TextView) rootView.findViewById(R.id.textStoreName);
             textView.setText("winkel: ");
@@ -106,10 +104,10 @@ public class Storedetails extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_store_stock, container, false);
             ListView listView = rootView.findViewById(R.id.simpleListView);
             Invoices invoices = new Invoices();
-            Stock[] stockList = invoices.getStocks();
+            Product[] productList = invoices.getStocks();
             List<String> list = new ArrayList<>();
 
-            for (Stock product : stockList) {
+            for (Product product : productList) {
                 int id = product.id;
                 String name = product.name;
                 String size = product.size;
@@ -179,6 +177,7 @@ public class Storedetails extends AppCompatActivity {
         Intent intent = getIntent();
         int storeId = intent.getIntExtra("storeId", 0);
         String storeName = intent.getStringExtra("storeName");
+        number = storeId;
 
         TextView title = findViewById(R.id.textView3);
         title.setText(storeName + " (nr:" + storeId + ")");
@@ -208,7 +207,7 @@ public class Storedetails extends AppCompatActivity {
         TabLayout.Tab deliveryTab = tabFull.newTab();
 
         nameTab(detailsTab, "Details", R.drawable.info);
-        nameTab(stockTab, "Stock", R.drawable.stock);
+        nameTab(stockTab, "Product", R.drawable.stock);
         nameTab(employeesTab, "Werknemers", R.drawable.employees);
         nameTab(deliveryTab, "Bestelbonnen", R.drawable.deliverynote);
     }

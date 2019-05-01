@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.List;
 
-import rutgercoopman.howest.projectapp.Employees;
 import rutgercoopman.howest.projectapp.models.Employee;
 
 public class EmployeesRepo extends  Repository<Employee> {
@@ -23,7 +22,7 @@ public class EmployeesRepo extends  Repository<Employee> {
         try {
             String json = fetch("/employees");
             System.out.println("json: " + json);
-            return (List<Employee>) new ObjectMapper().readValue(json, List.class);
+            return (List<Employee>) new ObjectMapper().readValue(json, Employee.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -31,16 +30,18 @@ public class EmployeesRepo extends  Repository<Employee> {
         return null;
     }
 
-
-//fout
+    @Override
     public Employee getItemById(int id) {
+        return null;
+    }
+
+    // TODO: 01/05/2019  toevoegen
+    public void addEmployee (Employee employee) {
         try {
-            String json = fetch("/products/" + id);
-            return new ObjectMapper().readValue(json, Employee.class);
+            String json = fetch("/employees/add");
+            System.out.println("json: " + json);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return null;
     }
 }

@@ -26,6 +26,7 @@ public abstract class Repository<T> {
 
     public abstract T getItemById(int id);
 
+
     public List<T> getItemsAsync() {
         try {
             return (new AsyncTask<Void, Void, List<T>>() {
@@ -39,7 +40,6 @@ public abstract class Repository<T> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
@@ -56,7 +56,6 @@ public abstract class Repository<T> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 

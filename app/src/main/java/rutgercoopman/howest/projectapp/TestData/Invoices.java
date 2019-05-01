@@ -1,8 +1,8 @@
-package rutgercoopman.howest.projectapp.table;
+package rutgercoopman.howest.projectapp.TestData;
 
 
         import rutgercoopman.howest.projectapp.models.Employee;
-        import rutgercoopman.howest.projectapp.models.Stock;
+        import rutgercoopman.howest.projectapp.models.Product;
         import rutgercoopman.howest.projectapp.models.Store;
 
 public class Invoices {
@@ -26,10 +26,10 @@ public class Invoices {
         return data;
     }
 
-    public Stock[] getStocks() {
-        Stock[] data = new Stock[40];
+    public Product[] getStocks() {
+        Product[] data = new Product[40];
         for (int i = 0; i < 40; i++) {
-            Stock row = new Stock(i+1, "naam "+i, i + "maat", "merk"+i+i, "kleur" + i, i +i +i);
+            Product row = new Product(i+1, "naam "+i, i + "maat", "merk"+i+i, "kleur" + i, i +i +i);
             data[i]= row;
         }
         return data;
