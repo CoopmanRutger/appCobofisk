@@ -6,26 +6,36 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Layout;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class Login_screen extends AppCompatActivity {
 
 
     Button loginButton;
+    TextView textView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         ConstraintLayout rl = (ConstraintLayout) findViewById(R.id.background);
-        rl.setBackgroundColor(Color.RED);
+        rl.setBackgroundColor(getResources().getColor(R.color.colorRed));
+
+        TextView textView = findViewById(R.id.usernameInput);
+        textView.setText("Username");
+        TextView textView1 = findViewById(R.id.passwordInput);
+        textView1.setText("Password");
+        textView2 = findViewById(R.id.textWarning);
+        textView2.setText("");
+
 
         loginButton = (Button) findViewById(R.id.loginButton);
+        loginButton.setText("Login");
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +59,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
 //        }
 //        else {
-//            System.out.println("nope");
+//            textView2.setText("WARNING! \n Wrong username and/or password");
+//            textView2.setBackgroundColor(getResources().getColor(R.color.colorOrange));
+//            textView2.setGravity(Gravity.CENTER);
 //        }
 
     }

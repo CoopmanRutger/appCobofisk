@@ -2,6 +2,7 @@ package rutgercoopman.howest.projectapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -18,10 +19,18 @@ public class Homescreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
 
+        ConstraintLayout rl = (ConstraintLayout) findViewById(R.id.background);
+        rl.setBackgroundColor(getResources().getColor(R.color.colorRed));
+
         logoutButton = findViewById(R.id.logOutButton);
         deliverysButton = findViewById(R.id.deliverysButton);
         storesButton = findViewById(R.id.storesButton);
         employeesButton = findViewById(R.id.employeesButton);
+
+        logoutButton.setText("Uitloggen");
+        deliverysButton.setText("Bestelbonnen");
+        storesButton.setText("Winkels");
+        employeesButton.setText("Werknemers");
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +62,7 @@ public class Homescreen extends AppCompatActivity {
     }
 
     private void loginScreen(){
-        Intent intent = new Intent(this,MainActivity.class );
+        Intent intent = new Intent(this, Login_screen.class );
         startActivity(intent);
     }
     private void goToDeliverys(){
