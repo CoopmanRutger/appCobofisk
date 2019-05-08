@@ -1,4 +1,4 @@
-package rutgercoopman.howest.projectapp;
+package rutgercoopman.howest.projectapp.screens;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -16,8 +16,11 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 
+import java.util.List;
+
+import rutgercoopman.howest.projectapp.R;
 import rutgercoopman.howest.projectapp.models.Employee;
-import rutgercoopman.howest.projectapp.TestData.Invoices;
+import rutgercoopman.howest.projectapp.repo.EmployeesRepo;
 
 public class Employees extends AppCompatActivity {
 
@@ -30,14 +33,13 @@ public class Employees extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employees);
 
-        basicStuff();
+        BasicStuff();
         tableMaker();
     }
 
-
     private void tableMaker(){
         progressBar = new ProgressDialog(this);
-        tableLayout = (TableLayout) findViewById(R.id.employeeTable);
+        tableLayout = findViewById(R.id.employeeTable);
         tableLayout.setStretchAllColumns(true);
         startLoadData();
     }
@@ -50,32 +52,30 @@ public class Employees extends AppCompatActivity {
         new LoadDataTask().execute(0);
     }
 
+    @SuppressLint("SetTextI18n")
     public void loadData() {
         int leftRowMargin=0;
         int topRowMargin=0;
         int rightRowMargin=0;
         int bottomRowMargin = 0;
-        int textSize = 0, smallTextSize =0;
+        int textSize, smallTextSize;
 
         textSize = (int) getResources().getDimension(R.dimen.font_size_verysmall);
         smallTextSize = (int) getResources().getDimension(R.dimen.font_size_small);
 
-        Invoices employees = new Invoices();
-        Employee[] data = employees.getEmployees();
-//        System.out.println(Arrays.toString(EmployeesRepo.instance.getItems().toArray()));
-//        Employee[] data = (Employee[]) EmployeesRepo.instance.getItems().toArray();
+        List<Employee> data = EmployeesRepo.instance.getItemsAsync();
 
-
-        int rows = data.length;
+        int rows = data.size();
         textView.setText("Werknemers (" + String.valueOf(rows) + ")");
-        TextView textSpacer = null;
+        TextView textSpacer;
 
         tableLayout.removeAllViews();
         // -1 means heading row
         for(int i = -1; i < rows; i ++) {
             Employee row = null;
             if (i > -1)
-            row = data[i];
+            row = new Employee(data.get(i).id, data.get(i).storeId, data.get(i).name,
+                    data.get(i).age, data.get(i).duty, data.get(i).username,"", data.get(i).startedOn);
             else {
                 textSpacer = new TextView(this);
                 textSpacer.setText("");
@@ -215,7 +215,6 @@ public class Employees extends AppCompatActivity {
             if (i > -1) {
                 tr.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        TableRow tr = (TableRow) v;
                         //do whatever action is needed
                     }
                 });
@@ -242,9 +241,8 @@ public class Employees extends AppCompatActivity {
             }
         }
     }
-
-        // The params are dummy and not used
-    class LoadDataTask extends AsyncTask<Integer, Integer, String> {
+        @SuppressLint("StaticFieldLeak")
+        class LoadDataTask extends AsyncTask<Integer, Integer, String> {
         @Override
         protected String doInBackground(Integer... params) {
             try {
@@ -252,7 +250,6 @@ public class Employees extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
             return "Task Completed.";
         }
 
@@ -272,11 +269,9 @@ public class Employees extends AppCompatActivity {
     }
 
     @SuppressLint("SetTextI18n")
-    private void basicStuff() {
-        Button backButton = findViewById(R.id.backToHome);
-        backButton.setText("Terug");
-        Button addEmployeeButton = findViewById(R.id.addEmployee);
-        addEmployeeButton.setText("Toevoegen");
+    private void BasicStuff() {
+        Button backButton = ButtonSet(R.id.backToHome, "Terug");
+        Button addEmployeeButton = ButtonSet(R.id.addEmployee,"Toevoegen");
 
         textView = findViewById(R.id.textView6);
         textView.setText("Werknemers");
@@ -284,27 +279,26 @@ public class Employees extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goBack();
+                GoToThere(Homescreen.class);
             }
         });
 
         addEmployeeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToAddEmployee();
+                GoToThere(Addemployee.class);
             }
         });
-
-
     }
 
-    private void goBack() {
-        Intent intent = new Intent(this, Homescreen.class);
-        startActivity(intent);
+    private Button ButtonSet(int id, String name) {
+        Button button = findViewById(id);
+        button.setText(name);
+        return button;
     }
 
-    private void goToAddEmployee() {
-        Intent intent = new Intent(this, Addemployee.class);
+    private void GoToThere(Class<?> goTo) {
+        Intent intent = new Intent(this, goTo);
         startActivity(intent);
     }
 }

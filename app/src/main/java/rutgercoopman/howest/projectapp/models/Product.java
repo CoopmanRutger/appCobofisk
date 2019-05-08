@@ -1,5 +1,8 @@
 package rutgercoopman.howest.projectapp.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Product {
 
     public int id;
@@ -9,8 +12,10 @@ public class Product {
     public String color;
     public int amount;
 
-
-    public Product(int id, String name, String size, String brand, String color, int amount) {
+    @JsonCreator
+    public Product(@JsonProperty("id") int id, @JsonProperty("name") String name,
+                   @JsonProperty("size") String size, @JsonProperty("brand") String brand,
+                   @JsonProperty("color") String color, @JsonProperty("amountStock") int amount) {
         this.id = id;
         this.name = name;
         this.size = size;
