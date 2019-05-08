@@ -1,49 +1,49 @@
 package rutgercoopman.howest.projectapp.repo;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import rutgercoopman.howest.projectapp.models.Employee;
-import rutgercoopman.howest.projectapp.models.Product;
 
 public class EmployeesRepo extends  Repository<Employee> {
 
-    public static final EmployeesRepo instance = new EmployeesRepo("http://10.0.0.2:3000");
+    public static final EmployeesRepo instance = new EmployeesRepo();
 
-    public EmployeesRepo(String domain) {
-        super(domain);
-    }
-
-    public EmployeesRepo() {
+    private EmployeesRepo() {
     }
 
     public List<Employee> getItems() {
         try {
             String json = fetch("/employees");
-            System.out.println("json: " + json);
-            return (List<Employee>) new ObjectMapper().readValue(json, Employee.class);
+            return getEmployeesFromJson(json);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
     @Override
     public Employee getItemById(int id) {
-        // niet nodig
         return null;
     }
 
     // TODO: 01/05/2019  toevoegen
-    public Employee addEmployeeAsync(final Employee employee) {
+    @SuppressLint("StaticFieldLeak")
+    public void addEmployeeAsync(final Employee employee) {
         try {
-            return (new AsyncTask<Void, Void, Employee>() {
+            (new AsyncTask<Void, Void, Employee>() {
+                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                 protected Employee doInBackground(Void... objects) {
                     return addEmployee(employee);
                 }
@@ -53,17 +53,56 @@ public class EmployeesRepo extends  Repository<Employee> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private Employee addEmployee (Employee employee) {
         try {
-            String json = fetch("/employees/add");
+
+            String json = post(employee);
             System.out.println("json: " + json);
+
             return employee;
-        } catch (IOException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
         return null;
     }
+
+    static ArrayList<Employee> getEmployeesFromJson(String json) {
+        final String ID = "id";
+        final String STOREID = "storeId";
+        final String NAME = "name";
+        final String AGE = "age";
+        final String DUTY = "duty";
+        final String USERNAME = "username";
+        final String STARTEDON = "created_at";
+
+        ArrayList<Employee> employees = new ArrayList<>();
+        try {
+            JSONArray arrayEmployees = new JSONArray(json);
+            int numberOfEmployees = arrayEmployees.length();
+            for(int i = 0; i < numberOfEmployees; i++) {
+                JSONObject Json = arrayEmployees.getJSONObject(i);
+                int id = Json.getInt(ID);
+                int storeId = Json.getInt(STOREID);
+                String name = Json.getString(NAME);
+                int age = Json.getInt(AGE);
+                String duty = Json.getString(DUTY);
+                String username = Json.getString(USERNAME);
+                String startedOn = Json.getString(STARTEDON);
+
+                String[] al = startedOn.split("T");
+                String data = al[0];
+
+                Employee employee = new Employee(id, storeId,name, age, duty, username, "", data);
+                employees.add(employee);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return employees;
+    }
+
+
 }

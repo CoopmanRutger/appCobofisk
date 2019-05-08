@@ -18,6 +18,8 @@ import android.widget.TextView;
 import rutgercoopman.howest.projectapp.models.Store;
 import rutgercoopman.howest.projectapp.TestData.Invoices;
 import rutgercoopman.howest.projectapp.repo.StoresRepo;
+import rutgercoopman.howest.projectapp.screens.Homescreen;
+import rutgercoopman.howest.projectapp.screens.Storedetails;
 
 public class Stores extends AppCompatActivity {
 

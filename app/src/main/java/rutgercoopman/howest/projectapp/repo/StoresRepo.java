@@ -1,10 +1,16 @@
 package rutgercoopman.howest.projectapp.repo;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -14,16 +20,47 @@ import rutgercoopman.howest.projectapp.models.Product;
 import rutgercoopman.howest.projectapp.models.Store;
 
 public class StoresRepo extends  Repository<Store> {
+    public static final StoresRepo instance = new StoresRepo();
+
     @Override
     public List<Store> getItems() {
         try {
             String json = fetch("/stores");
             System.out.println("json: " + json);
-            return (List<Store>) new ObjectMapper().readValue(json, Store.class);
+            return getStoresFromJson(json);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static ArrayList<Store> getStoresFromJson(String json) {
+        final String ID = "id";
+        final String NAME = "name";
+        final String ZIP = "postal code";
+        final String TOWN = "town";
+        final String STREET = "street";
+        final String NUMBER = "number";
+
+        ArrayList<Store> stores = new ArrayList<>();
+        try {
+            JSONArray arrayOrders = new JSONArray(json);
+            int numberOfOrders = arrayOrders.length();
+            for(int i = 0; i < numberOfOrders; i++) {
+                JSONObject Json = arrayOrders.getJSONObject(i);
+                int id = Json.getInt(ID);
+                String name = Json.getString(NAME);
+                String zip = Json.getString(ZIP);
+                String town = Json.getString(TOWN);
+                String street = Json.getString(STREET);
+                int number = Json.getInt(NUMBER);
+                Store store = new Store(id,name,zip,town,street,number,"","" );
+                stores.add(store);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return stores;
     }
 
     @Override
@@ -38,7 +75,7 @@ public class StoresRepo extends  Repository<Store> {
     }
 
 
-    // TODO: 01/05/2019
+    @SuppressLint("StaticFieldLeak")
     public List<Product> getProductsByStoreIdAsync(final int id) {
         try {
             return (new AsyncTask<Void, Void, List<Product>>() {
@@ -54,7 +91,7 @@ public class StoresRepo extends  Repository<Store> {
         return null;
     }
 
-    // TODO: 01/05/2019
+    @SuppressLint("StaticFieldLeak")
     public List<DeliveryNote> getDeliveryNotesByStoreIdAsync(final int id) {
         try {
             return (new AsyncTask<Void, Void, List<DeliveryNote>>() {
@@ -70,7 +107,7 @@ public class StoresRepo extends  Repository<Store> {
         return null;
     }
 
-    // TODO: 01/05/2019
+    @SuppressLint("StaticFieldLeak")
     public List<Employee> getEmployeesByStoreIdAsync(final int id) {
         try {
             return (new AsyncTask<Void, Void, List<Employee>>() {
@@ -88,7 +125,7 @@ public class StoresRepo extends  Repository<Store> {
     private List<Product> getProductsByStoreId(int id) {
         try {
             String json = fetch("/stores/" + id + "/products");
-            return (List<Product>) new ObjectMapper().readValue(json, Product.class);
+            return ProductsRepo.getProductsFromJson(json);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -98,7 +135,7 @@ public class StoresRepo extends  Repository<Store> {
     private List<DeliveryNote> getDeliveryNotesByStoreId(int id) {
         try {
             String json = fetch("/stores/" + id + "/deliveryNotes");
-            return (List<DeliveryNote>) new ObjectMapper().readValue(json, DeliveryNote.class);
+            return DeliveryNotesRepo.getDeliveryNotesFromJson(json);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -109,7 +146,7 @@ public class StoresRepo extends  Repository<Store> {
     private List<Employee> getEmployeesByStoreId(int id) {
         try {
             String json = fetch("/stores/" + id + "/employees");
-            return (List<Employee>) new ObjectMapper().readValue(json, Employee.class);
+            return EmployeesRepo.getEmployeesFromJson(json);
         } catch (IOException e) {
             e.printStackTrace();
         }

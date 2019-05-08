@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,7 +97,10 @@ public class Storedetails extends AppCompatActivity {
 
             // TODO: 01/05/2019 fetch met id store
             StoresRepo storesRepo = new StoresRepo();
-            Store store = storesRepo.getItemById(storeId);
+//            Store store = storesRepo.getItemById(storeId);
+            Invoices invoices = new Invoices();
+            Store[] data = invoices.getStores();
+            Store store = data[storeId];
 
             // standaard
             TextView textTown = (TextView) rootView.findViewById(R.id.textTown);
@@ -116,22 +118,22 @@ public class Storedetails extends AppCompatActivity {
 
             // fill in
             TextView textIdF = (TextView) rootView.findViewById(R.id.textIdFillIn);
-            textIdF.setText("5");
+            textIdF.setText(Integer.toString(store.id));
             TextView textView1 = (TextView) rootView.findViewById(R.id.textStoreNameFillIn);
-            textView1.setText("Name");
+            textView1.setText(store.name);
 //            textView1.setText(store.name);
             TextView textTownF = (TextView) rootView.findViewById(R.id.textTownFillIn);
-            textTownF.setText("Gent");
+            textTownF.setText(store.town);
             TextView textZipF = (TextView) rootView.findViewById(R.id.textZIPFillIn);
-            textZipF.setText("9000");
+            textZipF.setText(store.zip);
             TextView textStreetF = (TextView) rootView.findViewById(R.id.textStreetFillIn);
-            textStreetF.setText("jeflaan ");
+            textStreetF.setText(store.street);
             TextView textNumberF = (TextView) rootView.findViewById(R.id.textNumberFillIn);
-            textNumberF.setText("152b ");
+            textNumberF.setText(Integer.toString(store.number));
             TextView textAmountEmployeesF = (TextView) rootView.findViewById(R.id.textAmountEmployeesFillIn);
-            textAmountEmployeesF.setText("35");
+            textAmountEmployeesF.setText(Integer.toString(store.amountEmployees));
             TextView textAmountDeliverynotesF = (TextView) rootView.findViewById(R.id.textAmountOfDeliveryNotesFillIn);
-            textAmountDeliverynotesF.setText("10");
+            textAmountDeliverynotesF.setText(Integer.toString(store.amountOfDeliveryNotes));
 
             // TODO: dynamische figuur
 
@@ -145,13 +147,13 @@ public class Storedetails extends AppCompatActivity {
                 img.setImageResource(R.drawable.lidle);
             }
             if (storeId == 3) {
-                img.setImageResource(R.drawable.lidle);
+                img.setImageResource(R.drawable.action);
             }
             if (storeId == 4) {
                 img.setImageResource(R.drawable.zeeman);
             }
             if (storeId == 5) {
-                img.setImageResource(R.drawable.action);
+                img.setImageResource(R.drawable.oxfam);
             }
 
             img.setLayoutParams(params);
