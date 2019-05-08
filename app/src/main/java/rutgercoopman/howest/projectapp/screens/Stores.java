@@ -1,5 +1,6 @@
-package rutgercoopman.howest.projectapp;
+package rutgercoopman.howest.projectapp.screens;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,11 +16,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.List;
+
+import rutgercoopman.howest.projectapp.R;
 import rutgercoopman.howest.projectapp.models.Store;
-import rutgercoopman.howest.projectapp.TestData.Invoices;
 import rutgercoopman.howest.projectapp.repo.StoresRepo;
-import rutgercoopman.howest.projectapp.screens.Homescreen;
-import rutgercoopman.howest.projectapp.screens.Storedetails;
 
 public class Stores extends AppCompatActivity {
 
@@ -38,7 +39,7 @@ public class Stores extends AppCompatActivity {
 
     private void tableMaker() {
         progressBar = new ProgressDialog(this);
-        tableLayout = (TableLayout) findViewById(R.id.storeTable);
+        tableLayout = findViewById(R.id.storeTable);
         textView = findViewById(R.id.textView5);
         tableLayout.setStretchAllColumns(true);
         startLoadData();
@@ -52,45 +53,44 @@ public class Stores extends AppCompatActivity {
         new LoadDataTask().execute(0);
     }
 
+    @SuppressLint({"SetTextI18n", "RtlHardcoded"})
     public void loadData() {
         int leftRowMargin=0;
         int topRowMargin=0;
         int rightRowMargin=0;
         int bottomRowMargin = 0;
-        int textSize = 0, smallTextSize =0;
+        int textSize, smallTextSize;
 
         textSize = (int) getResources().getDimension(R.dimen.font_size_verysmall);
         smallTextSize = (int) getResources().getDimension(R.dimen.font_size_small);
 
-        // TODO: 01/05/2019
-        StoresRepo storesRepo = new StoresRepo();
-//        Store[] data = storesRepo.getItems().toArray(new Store[200]);
-        Invoices stores = new Invoices();
-        Store[] data = stores.getStores();
-
-        int rows = data.length;
+        List<Store> data = StoresRepo.instance.getItemsAsync();
+        int rows = data.size();
         System.out.println(rows);
         textView.setText("winkels (" + String.valueOf(rows) + ")");
-        TextView textSpacer = null;
+        TextView textSpacer;
 
         tableLayout.removeAllViews();
-        // -1 means heading row
+
         for(int i = -1; i < rows; i ++) {
             Store row = null;
-            if (i > -1)
-                row = data[i];
+            if (i > -1) {
+                String amountEmployees = String.valueOf(StoresRepo.instance.getEmployeesByStoreIdAsync(i+1).size());
+                String amountDeliveryNotes = String.valueOf(StoresRepo.instance.getDeliveryNotesByStoreIdAsync(i+1).size());
+
+                row = new Store(data.get(i).id, data.get(i).name, data.get(i).town,
+                        data.get(i).postal_code, data.get(i).street, data.get(i).number,
+                        amountEmployees, amountDeliveryNotes);
+            }
             else {
                 textSpacer = new TextView(this);
                 textSpacer.setText("");
-
             }
-            // data columns
             final TextView tvId = new TextView(this);
             tvId.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
 
             tvId.setGravity(Gravity.CENTER);
-
             tvId.setPadding(5, 10, 0, 10);
             if (i == -1) {
                 tvId.setText(" \n Id nr");
@@ -101,7 +101,6 @@ public class Stores extends AppCompatActivity {
                 tvId.setText(String.valueOf(row.id));
                 tvId.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             }
-
 
             final TextView tvName = new TextView(this);
             if (i == -1) {
@@ -115,7 +114,6 @@ public class Stores extends AppCompatActivity {
                 tvName.setPadding(5, 0, 0, 5);
                 tvName.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             }
-
             tvName.setGravity(Gravity.CENTER);
             tvName.setPadding(5, 10, 0, 10);
 
@@ -129,12 +127,10 @@ public class Stores extends AppCompatActivity {
                 tvName.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
             }
 
-
             final LinearLayout layAddress = new LinearLayout(this);
             layAddress.setOrientation(LinearLayout.VERTICAL);
             layAddress.setPadding(0, 10, 0, 10);
             layAddress.setBackgroundColor(Color.parseColor("#f8f8f8"));
-
 
             final TextView tvAddress = new TextView(this);
             if (i == -1) {
@@ -148,7 +144,6 @@ public class Stores extends AppCompatActivity {
             }
 
             tvAddress.setGravity(Gravity.CENTER);
-
             tvAddress.setPadding(5, 10, 0, 10);
             if (i == -1) {
                 tvAddress.setText(" \n adres");
@@ -156,7 +151,7 @@ public class Stores extends AppCompatActivity {
             }else {
                 tvAddress.setBackgroundColor(Color.parseColor("#ffffff"));
                 tvAddress.setTextColor(Color.parseColor("#000000"));
-                tvAddress.setText(row.town + " (" + row.zip + ") ");
+                tvAddress.setText(row.town + " (" + row.postal_code + ") ");
             }
             layAddress.addView(tvAddress);
 
@@ -164,7 +159,6 @@ public class Stores extends AppCompatActivity {
                 final TextView tvStreetAddress = new TextView(this);
                 tvStreetAddress.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                         TableRow.LayoutParams.WRAP_CONTENT));
-
                 tvStreetAddress.setGravity(Gravity.RIGHT);
                 tvStreetAddress.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
                 tvStreetAddress.setPadding(5, 1, 0, 5);
@@ -179,7 +173,6 @@ public class Stores extends AppCompatActivity {
             layAmounts.setPadding(0, 10, 0, 10);
             layAmounts.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.MATCH_PARENT));
-
 
             final TextView tvEmployees = new TextView(this);
             if (i == -1) {
@@ -196,14 +189,13 @@ public class Stores extends AppCompatActivity {
 
             tvEmployees.setGravity(Gravity.CENTER);
             tvEmployees.setPadding(5, 10, 0, 10);
-
             if (i == -1) {
                 tvEmployees.setText("Aantal \n werknemers");
                 tvEmployees.setBackgroundColor(Color.parseColor("#ba160C"));
             } else {
                 tvEmployees.setBackgroundColor(Color.parseColor("#f8f8f8"));
                 tvEmployees.setTextColor(Color.parseColor("#000000"));
-                tvEmployees.setText(Integer.toString(row.amountEmployees));
+                tvEmployees.setText(row.amountOfEmployees);
                 tvEmployees.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
             }
 
@@ -212,7 +204,6 @@ public class Stores extends AppCompatActivity {
                 tvDeliveryNotes.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.WRAP_CONTENT));
                 tvDeliveryNotes.setPadding(5, 5, 1, 5);
-
             } else {
                 tvDeliveryNotes.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                         TableRow.LayoutParams.MATCH_PARENT));
@@ -221,7 +212,6 @@ public class Stores extends AppCompatActivity {
 
             tvDeliveryNotes.setGravity(Gravity.CENTER);
             tvDeliveryNotes.setPadding(5, 10, 0, 10);
-
             if (i == -1) {
                 tvDeliveryNotes.setText("Aantal \n bestelbonnen");
                 tvDeliveryNotes.setBackgroundColor(Color.parseColor("#ba160C"));
@@ -229,10 +219,10 @@ public class Stores extends AppCompatActivity {
             }else {
                 tvDeliveryNotes.setBackgroundColor(Color.parseColor("#ffffff"));
                 tvDeliveryNotes.setTextColor(Color.parseColor("#000000"));
-                tvDeliveryNotes.setText(Integer.toString(row.amountOfDeliveryNotes));
+                tvDeliveryNotes.setText(row.amountOfDeliveryNotes);
                 tvDeliveryNotes.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             }
-            // add table row
+
             final TableRow tr = new TableRow(this);
             tr.setId(i+1);
             tr.setClickable(true);
@@ -250,22 +240,18 @@ public class Stores extends AppCompatActivity {
                 tr.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         TableRow tr = (TableRow) v;
-
                         TextView idColomn = (TextView) tr.getChildAt(0);
                         TextView nameColomn = (TextView) tr.getChildAt(1);
                         int id = Integer.parseInt(idColomn.getText().toString());
                         String storeName = nameColomn.getText().toString();
 
-                        //use id for next page
                         goToStoreDetails(id, storeName);
-
                     }
                 });
             }
             tableLayout.addView(tr, trParams);
 
             if (i > -1) {
-                // add separator row
                 final TableRow trSep = new TableRow(this);
                 TableLayout.LayoutParams trParamsSep = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
                         TableLayout.LayoutParams.WRAP_CONTENT);
@@ -286,7 +272,6 @@ public class Stores extends AppCompatActivity {
     }
 
     private void goToStoreDetails(int id, String name) {
-//        Intent intent = new Intent(this, test.class);
         Intent intent = new Intent(this, Storedetails.class);
         intent.putExtra("storeId", id);
         intent.putExtra("storeName", name);
@@ -294,6 +279,7 @@ public class Stores extends AppCompatActivity {
     }
 
     // The params are dummy and not used
+    @SuppressLint("StaticFieldLeak")
     class LoadDataTask extends AsyncTask<Integer, Integer, String> {
         @Override
         protected String doInBackground(Integer... params) {
@@ -321,6 +307,7 @@ public class Stores extends AppCompatActivity {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private void basicStuff(){
         TextView textView = findViewById(R.id.textView5);
         textView.setText("Winkels");

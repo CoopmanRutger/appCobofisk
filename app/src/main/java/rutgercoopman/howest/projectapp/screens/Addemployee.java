@@ -1,5 +1,6 @@
-package rutgercoopman.howest.projectapp;
+package rutgercoopman.howest.projectapp.screens;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,13 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import rutgercoopman.howest.projectapp.R;
+import rutgercoopman.howest.projectapp.models.Employee;
+import rutgercoopman.howest.projectapp.repo.EmployeesRepo;
+
 public class Addemployee extends AppCompatActivity {
 
 
@@ -18,37 +26,21 @@ public class Addemployee extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addemployee);
 
-
-        ConstraintLayout rl = (ConstraintLayout) findViewById(R.id.background);
+        ConstraintLayout rl = findViewById(R.id.background);
         rl.setBackgroundColor(getResources().getColor(R.color.colorRed));
 
         basicStuff();
-
     }
 
+    @SuppressLint("SetTextI18n")
     private void basicStuff(){
-        TextView textView = findViewById(R.id.textView2);
-        textView.setText("Werknemer toevoegen");
-
-        TextView textName = findViewById(R.id.textName);
-        textName.setText("Naam");
-
-        TextView textAge = findViewById(R.id.textAge);
-        textAge.setText("Leeftijd");
-
-        TextView textJob = findViewById(R.id.textJob);
-        textJob.setText("Job");
-
-        TextView textStore = findViewById(R.id.textStore);
-        textStore.setText("Store");
-
-
-        TextView textUsername = findViewById(R.id.textUsername);
-        textUsername.setText("Username");
-
-
-        TextView textPassword = findViewById(R.id.textPassword);
-        textPassword.setText("Password");
+        TextViewSet(R.id.textView2, "Werknemer toevoegen");
+        TextViewSet(R.id.textName, "Naam");
+        TextViewSet(R.id.textAge, "Leeftijd");
+        TextViewSet(R.id.textJob, "Job");
+        TextViewSet(R.id.textStore, "Store");
+        TextViewSet(R.id.textUsername,"Username");
+        TextViewSet(R.id.textPassword, "Password");
 
         Button backButton = findViewById(R.id.backToEmployee);
         backButton.setText("Terug");
@@ -56,67 +48,75 @@ public class Addemployee extends AppCompatActivity {
         Button confirmAddEmployee = findViewById(R.id.addEmployee);
         confirmAddEmployee.setText("Bevestigen");
 
-        spinners();
+        Addspinners();
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goBack();
+                GoBack();
             }
         });
 
         confirmAddEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                form();
+                Form();
             }
         });
     }
 
-    private  void spinners() {
-        //dynamisch maken!
-        Spinner dropdown = findViewById(R.id.editJob);
-        String[] items = new String[]{"Manager", "HR-manager", "werknemer", "tester", "student"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        dropdown.setAdapter(adapter);
-
-        Spinner dropdown1 = findViewById(R.id.editStore);
-        String[] items1 = new String[]{"id:1 - winkelnaam", "id2: winkelnaam2", "id:3 winkelnaam", "id:4 winkelnaam"};
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items1);
-        dropdown1.setAdapter(adapter1);
-
+    private  void Addspinners() {
+        //todo dynamisch maken!
+        SpinnersBuilder(R.id.editJob, new String[]{"Manager", "HR-manager", "werknemer", "tester", "student"});
+        SpinnersBuilder(R.id.editStore, new String[]{"1", "2", "3", "4"});
     }
 
-    private void form(){
+    private void Form(){
+        String name = TextViewGet(R.id.editName);
+        String username = TextViewGet(R.id.editUsername);
+        String password = TextViewGet(R.id.editPassword);
+        String ageText = TextViewGet(R.id.editAge);
 
-        TextView editName = findViewById(R.id.editName);
-        String name = editName.getText().toString();
+        String job = SpinnerGet(R.id.editJob);
+        String storeIdText = SpinnerGet(R.id.editStore);
 
-        TextView editAge = findViewById(R.id.editAge);
-        String age = editAge.getText().toString();
+        int age = Integer.parseInt(ageText);
+        int storeId = Integer.parseInt(storeIdText);
 
-        Spinner editJob = findViewById(R.id.editJob);
-        String job = editJob.getSelectedItem().toString();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        System.out.println(formatter.format(date));
 
-        Spinner editStore = findViewById(R.id.editStore);
-        String store = editStore.getSelectedItem().toString();
-
-        TextView editUsername = findViewById(R.id.editUsername);
-        String username = editUsername.getText().toString();
-
-        TextView editPassword = findViewById(R.id.editPassword);
-        String password = editPassword.getText().toString();
+        Employee employee = new Employee(0, storeId,  name, age, job, username, password, formatter.format(date));
+        EmployeesRepo.instance.addEmployeeAsync(employee);
 
 
-        System.out.println(name + " (" + age + ") \n" + store + " -> "+ job +
-                " \n(username: " + username + "   password:" + password );
+        GoBack();
     }
 
-    private void goBack() {
+    private void GoBack() {
         Intent intent = new Intent(this, Employees.class);
         startActivity(intent);
     }
 
+    private String SpinnerGet(int id) {
+        Spinner spinner = findViewById(id);
+        return spinner.getSelectedItem().toString();
+    }
 
+    private void SpinnersBuilder(int id, String[] items ) {
+        Spinner spinner = findViewById(id);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        spinner.setAdapter(adapter);
+    }
 
+    private String TextViewGet(int textId) {
+        TextView textView = findViewById(textId);
+        return textView.getText().toString();
+    }
+
+    private void TextViewSet(int id, String name) {
+        TextView textView = findViewById(id);
+        textView.setText(name);
+    }
 }

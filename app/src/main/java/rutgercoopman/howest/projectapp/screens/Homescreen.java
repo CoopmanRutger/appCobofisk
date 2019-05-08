@@ -1,5 +1,6 @@
-package rutgercoopman.howest.projectapp;
+package rutgercoopman.howest.projectapp.screens;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -7,77 +8,40 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import rutgercoopman.howest.projectapp.R;
+
 public class Homescreen extends AppCompatActivity {
 
-    Button logoutButton;
-    Button deliverysButton;
-    Button storesButton;
-    Button employeesButton;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
 
-        ConstraintLayout rl = (ConstraintLayout) findViewById(R.id.background);
+        ConstraintLayout rl = findViewById(R.id.background);
         rl.setBackgroundColor(getResources().getColor(R.color.colorRed));
 
-        logoutButton = findViewById(R.id.logOutButton);
-        deliverysButton = findViewById(R.id.deliverysButton);
-        storesButton = findViewById(R.id.storesButton);
-        employeesButton = findViewById(R.id.employeesButton);
+        ButtonSet(R.id.logOutButton, "Uitloggen", Login_screen.class);
+        ButtonSet(R.id.deliverysButton, "Bestelbonnen", Deliverys.class);
+        ButtonSet(R.id.storesButton, "Winkels", Stores.class);
+        ButtonSet(R.id.employeesButton, "Werknemers", Employees.class);
+    }
 
-        logoutButton.setText("Uitloggen");
-        deliverysButton.setText("Bestelbonnen");
-        storesButton.setText("Winkels");
-        employeesButton.setText("Werknemers");
+    private void ButtonSet(int id, String name, final Class<?> goTo) {
+        Button button = findViewById(id);
+        button.setText(name);
 
-        logoutButton.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginScreen();
+                GoTo(goTo);
             }
         });
-        deliverysButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToDeliverys();
-            }
-        });
-
-        storesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToStores();
-            }
-        });
-        employeesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToEmployees();
-            }
-        });
-
-
     }
 
-    private void loginScreen(){
-        Intent intent = new Intent(this, Login_screen.class );
+    private void GoTo(Class<?> goTo){
+        Intent intent = new Intent(this, goTo);
         startActivity(intent);
     }
-    private void goToDeliverys(){
-        Intent intent = new Intent(this,Deliverys.class );
-        startActivity(intent);
-    }
-    private void goToStores(){
-        Intent intent = new Intent(this, Stores.class );
-        startActivity(intent);
-    }
-    private void goToEmployees(){
-        Intent intent = new Intent(this, Employees.class );
-        startActivity(intent);
-    }
-
-
-
 }

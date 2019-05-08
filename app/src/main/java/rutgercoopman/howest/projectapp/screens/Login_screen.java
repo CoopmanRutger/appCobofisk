@@ -1,21 +1,20 @@
-package rutgercoopman.howest.projectapp;
+package rutgercoopman.howest.projectapp.screens;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import rutgercoopman.howest.projectapp.R;
 
 public class Login_screen extends AppCompatActivity {
 
 
-    Button loginButton;
     TextView textView2;
 
     @Override
@@ -23,18 +22,19 @@ public class Login_screen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ConstraintLayout rl = (ConstraintLayout) findViewById(R.id.background);
+       basicStuff();
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void basicStuff() {
+        ConstraintLayout rl = findViewById(R.id.background);
         rl.setBackgroundColor(getResources().getColor(R.color.colorRed));
 
-        TextView textView = findViewById(R.id.usernameInput);
-        textView.setText("Username");
-        TextView textView1 = findViewById(R.id.passwordInput);
-        textView1.setText("Password");
-        textView2 = findViewById(R.id.textWarning);
-        textView2.setText("");
+        TextViewSet(R.id.usernameInput, "Username");
+        TextViewSet(R.id.passwordInput, "Password");
+        textView2 = TextViewSet(R.id.textWarning, "");
 
-
-        loginButton = (Button) findViewById(R.id.loginButton);
+        Button loginButton = findViewById(R.id.loginButton);
         loginButton.setText("Login");
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,28 +42,40 @@ public class Login_screen extends AppCompatActivity {
                 openHomeScreen();
             }
         });
-
-
-
-
     }
 
     private void openHomeScreen() {
-        TextView passwordView = findViewById(R.id.passwordText);
-        TextView usernameView = findViewById(R.id.usernameText);
-        String password = passwordView.getText().toString();
-        String username = usernameView.getText().toString();
+        String password = TextViewGet(R.id.passwordText);
+        String username = TextViewGet(R.id.usernameText);
 
-//        if (password.equals("test") && username.equals("test")){
-            Intent intent = new Intent(this, Homescreen.class);
-            startActivity(intent);
-//        }
-//        else {
-//            textView2.setText("WARNING! \n Wrong username and/or password");
-//            textView2.setBackgroundColor(getResources().getColor(R.color.colorOrange));
-//            textView2.setGravity(Gravity.CENTER);
-//        }
+        if (password.equals("admin") && username.equals("admin")){
+            GoTo();
+        }
+        else {
+            warning();
+        }
+    }
 
+    private void GoTo(){
+        Intent intent = new Intent(this, Homescreen.class);
+        startActivity(intent);
+    }
+
+    private void warning() {
+            textView2.setText("WARNING! \n Wrong username and/or password");
+            textView2.setBackgroundColor(getResources().getColor(R.color.colorOrange));
+            textView2.setGravity(Gravity.CENTER);
+    }
+
+    private String TextViewGet(int textId) {
+        TextView textView = findViewById(textId);
+        return textView.getText().toString();
+    }
+
+    private TextView TextViewSet(int id, String name) {
+        TextView textView = findViewById(id);
+        textView.setText(name);
+        return textView;
     }
 }
 
