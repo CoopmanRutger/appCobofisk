@@ -1,2 +1,7 @@
+# appCobofisk
 
-link wireframes: https://app.moqups.com/qmOBNy60U0/view
+## aanpassen 
+app > java > rutgercoopman... > repo > Repository -> defaultDomain naar eigen ip-adres
+
+## vergeet backend niet!
+backend (node.js express) -> appCobofiskNode.JS
